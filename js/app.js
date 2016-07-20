@@ -2,11 +2,10 @@
 $(document).ready(function(){
 	var compNum = Math.floor((Math.random() * 100) + 1);   //Assigning global variables
 	var userNum;
-  var guessCount = 0;
+	var guessCount = 0;
 	/*--- Display information modal box ---*/
 	$(".what").click(function(){
-  	$(".overlay").fadeIn(1000);
-
+		$(".overlay").fadeIn(1000);
 	});
 
 	/*--- Hide information modal box ---*/
@@ -15,22 +14,21 @@ $(document).ready(function(){
 	});
 
 	$(".new").click(function() {
-	  location.reload();
-	  compNum = Math.floor((Math.random() * 100) + 1);
+		location.reload();
+		compNum = Math.floor((Math.random() * 100) + 1);
 	});    // Reload new game when clicking +NewGame
 
 	$("form").submit(function(e) {
 		e.preventDefault();
 		getUserGuess();  
-    guessCount++;  
-    $("#count").text(guessCount);  // Increases the guess counter
-    $("#userGuess").val("");  // Resets guess input field to placeholder value
-
+    	guessCount++;  
+    	$("#count").text(guessCount);  // Increases the guess counter
+    	$("#userGuess").val("");  // Resets guess input field to placeholder value
 	}); //listens for button click and calls function below
 
 	function getUserGuess () {
 		var userNum = $("#userGuess").val(); //stores user input/guess into variable
-    $("#guessList").append(userNum + " ");
+		$("#guessList").append(userNum + " ");
 		//console.log(compNum)
 		var feedbackNum = Math.abs(compNum - userNum);
 		//console.log(feedbackNum);
@@ -39,17 +37,17 @@ $(document).ready(function(){
 		}
 		else if (feedbackNum >= 20 && feedbackNum <= 29 ) {
 			$('h2').text("Warm");
-	}
+		}
 		else if(feedbackNum >= 10 && feedbackNum <= 19){
 			$('h2').text("Hot");
+		}
+		else if(feedbackNum >= 1 && feedbackNum <= 9) {
+			$('h2').text("Very Hot");
+		}
+		else {
+			$('h2').text("You got it!");  // Feedback if statement on whether user is hot or cold etc.
   		}
-  	else if(feedbackNum >= 1 && feedbackNum <= 9) {
-  		$('h2').text("Very Hot");
-  		}
-  	else {
-  		$('h2').text("You got it!");  // Feedback if statement on whether user is hot or cold etc.
-  		}
-  }
+	}
 });
 
 // ****Click +new Game to start a new game
