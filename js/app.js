@@ -1,66 +1,57 @@
 
 $(document).ready(function(){
-	var compNum = Math.floor((Math.random() * 100) + 1);
+	var compNum = Math.floor((Math.random() * 100) + 1);   //Assigning global variables
 	var userNum;
+  var guessCount = 0;
 	/*--- Display information modal box ---*/
-  	$(".what").click(function(){
-    	$(".overlay").fadeIn(1000);
+	$(".what").click(function(){
+  	$(".overlay").fadeIn(1000);
 
-  	});
+	});
 
-  	/*--- Hide information modal box ---*/
-  	$("a.close").click(function(){
-  		$(".overlay").fadeOut(1000);
-  	});
+	/*--- Hide information modal box ---*/
+	$("a.close").click(function(){
+		$(".overlay").fadeOut(1000);
+	});
 
-  	$(".new").click(function() {
-		// $(".game")[0].reset();
-		compNum = Math.floor((Math.random() * 100) + 1);
-		alert(compNum);
-		});
+	$(".new").click(function() {
+	  location.reload();
+	  compNum = Math.floor((Math.random() * 100) + 1);
+	});    // Reload new game when clicking +NewGame
 
-  	$("form").submit(function(e) {
-  		e.preventDefault();
-  		getUserGuess();
-  	}); //listens for button click and calls function below
+	$("form").submit(function(e) {
+		e.preventDefault();
+		getUserGuess();  
+    guessCount++;  
+    $("#count").text(guessCount);  // Increases the guess counter
+    $("#userGuess").val("");  // Resets guess input field to placeholder value
 
-  	function getUserGuess () {
-  		var userNum = $("#userGuess").val(); //stores user input/guess into variable
-  	
-  		//alert(userNum);
-  		console.log(compNum)
-  		var feedbackNum = Math.abs(compNum - userNum);
-  		console.log(feedbackNum);
+	}); //listens for button click and calls function below
 
-  		//alert(feedbackNum);
-  		if (feedbackNum >= 30)  {
-  			$('h2').text("Ice Cold");
-  		}
-  		else if (feedbackNum >= 20 && feedbackNum <= 29 ) {
-  			$('h2').text("Warm");
+	function getUserGuess () {
+		var userNum = $("#userGuess").val(); //stores user input/guess into variable
+    $("#guessList").append(userNum + " ");
+		//console.log(compNum)
+		var feedbackNum = Math.abs(compNum - userNum);
+		//console.log(feedbackNum);
+		if (feedbackNum >= 30)  {
+			$('h2').text("Ice Cold");
 		}
+		else if (feedbackNum >= 20 && feedbackNum <= 29 ) {
+			$('h2').text("Warm");
+	}
 		else if(feedbackNum >= 10 && feedbackNum <= 19){
 			$('h2').text("Hot");
   		}
-  		else if(feedbackNum >= 1 && feedbackNum <= 9) {
-  			$('h2').text("Very Hot");
+  	else if(feedbackNum >= 1 && feedbackNum <= 9) {
+  		$('h2').text("Very Hot");
   		}
-  		else {
-  			$('h2').text("You got it!");
+  	else {
+  		$('h2').text("You got it!");  // Feedback if statement on whether user is hot or cold etc.
   		}
-
-}
- 
-  // 	function userGuess() {
-		// var input = document.getElementById("userGuess").value;
-		// alert(input);
-		// }
- //  	var userInput = (prompt('Please enter a number!'));
-	// while (userInput % 1 != 0) {
-	// 	userInput = (prompt('Please do not enter a decimal point'));
-
+  }
 });
-	
+
 // ****Click +new Game to start a new game
     // ****will need to build a function
 
