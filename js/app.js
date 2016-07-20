@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
-	
+	var compNum = Math.floor((Math.random() * 100) + 1);
+	var userNum;
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
@@ -14,20 +15,42 @@ $(document).ready(function(){
 
   	$(".new").click(function() {
 		// $(".game")[0].reset();
-		var compNum = Math.floor((Math.random() * 100) + 1);
+		compNum = Math.floor((Math.random() * 100) + 1);
 		alert(compNum);
-	});
-  	document.getElementById("guessButton").addEventListener("click", getUserGuess); //listens for button click and calls function below
-  	function getUserGuess () {
-  		var userNum = document.getElementById("userGuess").value; //stores user input/guess into variable
-  		// while (userNum % 1 != 0) {
-  		// 	$(".userGuess").val("");
-  		// 	alert("Please enter a whole number");
-  		// }
-  		#count++
-  		alert(userNum);
+		});
 
-  	}
+  	$("form").submit(function(e) {
+  		e.preventDefault();
+  		getUserGuess();
+  	}); //listens for button click and calls function below
+
+  	function getUserGuess () {
+  		var userNum = $("#userGuess").val(); //stores user input/guess into variable
+  	
+  		//alert(userNum);
+  		console.log(compNum)
+  		var feedbackNum = Math.abs(compNum - userNum);
+  		console.log(feedbackNum);
+
+  		//alert(feedbackNum);
+  		if (feedbackNum >= 30)  {
+  			$('h2').text("Ice Cold");
+  		}
+  		else if (feedbackNum >= 20 && feedbackNum <= 29 ) {
+  			$('h2').text("Warm");
+		}
+		else if(feedbackNum >= 10 && feedbackNum <= 19){
+			$('h2').text("Hot");
+  		}
+  		else if(feedbackNum >= 1 && feedbackNum <= 9) {
+  			$('h2').text("Very Hot");
+  		}
+  		else {
+  			$('h2').text("You got it!");
+  		}
+
+}
+ 
   // 	function userGuess() {
 		// var input = document.getElementById("userGuess").value;
 		// alert(input);
